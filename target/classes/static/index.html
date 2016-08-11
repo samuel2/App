@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.3.6-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body ng-app="MyApp" ng-controller="ChambreCtrl">
+<div class="container">
+    <div class="spacer">
+        <form>
+            <button ng-click="charger()">Search</button>
+        </form>
+    </div>
+
+    <table class="table table-responsive table-striped">
+        <thead class="btn-primary">
+        <tr>
+            <th>Libelle</th>
+            <th>Type</th>
+            <th>Position</th>
+            <th>Prix</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="chambre in chambres">
+            <td>{{chambre.libelle}}</td>
+            <td>{{chambre.type}}</td>
+            <td>{{chambre.position}}</td>
+            <td>{{chambre.prix}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript" src="angular-1.5.6/angular.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
