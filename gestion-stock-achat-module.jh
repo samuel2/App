@@ -1,0 +1,136 @@
+// JDL definition for application 'mowobu2' generated with command 'jhipster export-jdl'
+
+entity PageData (page_data) {
+  title String required,
+  content TextBlob,
+  language CVLanguage required,
+  image ImageBlob,
+  url String
+}
+entity Menu (menu) {
+  name String required,
+  language CVLanguage required
+}
+entity JobSeeker (job_seeker) {
+  candidateId String,
+  phoneNumber String required,
+  homePhoneNumber String,
+  streetAddress String required,
+  appartmentNumber String,
+  doorNumber String,
+  zipcode String required minlength(6) maxlength(6),
+  city String required,
+  province Province,
+  linkedIn String,
+  sexe Sexe,
+  activationkey String,
+  photo ImageBlob,
+  coverLetter AnyBlob,
+  cv AnyBlob
+}
+entity CurriculumVitae (curriculum_vitae) {
+  profession String required,
+  language CVLanguage,
+  urlVideoPresentation String
+}
+entity Diploma (diploma) {
+  name String required,
+  dateOfObtaining LocalDate required,
+  mention String
+}
+entity ProfessionalExperience (professional_experience) {
+  company String required,
+  startingDate LocalDate required,
+  endingDate LocalDate,
+  positionHeld String,
+  accomplishedTasks String
+}
+entity Skill (skill) {
+  domain String required,
+  level Level
+}
+entity Language (language) {
+  name String required,
+  speakingLevel Level,
+  writingLevel Level,
+  hearingLevel Level
+}
+entity Certification (certification) {
+  name String required,
+  passMark String
+}
+entity OtherInformation (other_information) {
+  description String
+}
+entity ApplyTo (apply_to) {
+  jobId String,
+  title String,
+  applicationDate LocalDate required
+}
+entity JobOffer (job_offer) {
+  code String required,
+  title String required,
+  location String required,
+  description TextBlob,
+  numberOfPlace Integer required,
+  requiredExperience String,
+  expirationDate LocalDate,
+}
+
+enum CVLanguage {
+  ENGLISH,
+  FRANCAIS
+}
+
+enum Province {
+  AB,
+  BC,
+  MB,
+  NB,
+  NL,
+  NT,
+  NS,
+  NU,
+  ON,
+  PE,
+  QC,
+  SK,
+  YT
+}
+
+enum Sexe {
+  M,
+  F
+}
+
+enum Level {
+  L1,
+  L2,
+  L3,
+  L4,
+  L5,
+  L6,
+  L7,
+  L8,
+  L9,
+  L10
+}
+
+relationship OneToOne {
+  PageData{menu} to Menu,
+  JobSeeker{user} to User
+}
+relationship ManyToOne {
+  Menu{parent} to Menu,
+  CurriculumVitae{jobSeeker} to JobSeeker,
+  Diploma{curriculumVitae} to CurriculumVitae,
+  ProfessionalExperience{curriculumVitae} to CurriculumVitae,
+  Skill{curriculumVitae} to CurriculumVitae,
+  Language{curriculumVitae} to CurriculumVitae,
+  Certification{curriculumVitae} to CurriculumVitae,
+  OtherInformation{curriculumVitae} to CurriculumVitae,
+  ApplyTo{jobSeeker} to JobSeeker
+}
+
+paginate PageData, Menu, JobSeeker, CurriculumVitae, Diploma, ProfessionalExperience, Skill, Language, Certification, OtherInformation, ApplyTo, JobOffer with pagination
+service PageData, Menu, JobSeeker, CurriculumVitae, Diploma, ProfessionalExperience, Skill, Language, Certification, OtherInformation, ApplyTo, JobOffer with serviceImpl
